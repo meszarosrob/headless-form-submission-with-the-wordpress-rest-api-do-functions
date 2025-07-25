@@ -1,0 +1,30 @@
+name: Quality Assurance
+on:
+    workflow_dispatch:
+    push:
+
+jobs:
+    quality-assurance:
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                path:
+                    - 'lib/serverless-mocked-response'
+                    - 'packages/response/contact-form-7'
+                    - 'packages/response/gravity-forms'
+        steps:
+            -   name: Clone repository code
+                uses: actions/checkout@v6
+
+            -   name: Setup PHP
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: '8.2'
+
+            -   name: Install dependencies
+                run: composer install
+                working-directory: ${{ matrix.path }}
+
+            -   name: Run QA checks
+                run: composer run qa
+                working-directory: ${{ matrix.path }}

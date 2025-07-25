@@ -1,0 +1,7 @@
+.deployed/
+.idea/
+.phpunit.result.cache
+__deployer__.zip
+artifacts/
+auth.json
+vendor/

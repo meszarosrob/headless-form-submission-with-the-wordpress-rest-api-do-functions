@@ -1,0 +1,10 @@
+parameters:
+	level: 8
+	paths:
+		- src
+		- tests
+services:
+    -
+        class: HeadlessWpForms\GravityForms\Tests\Architecture\FieldsExtendsBaseFieldTest
+        tags:
+            - phpat.test

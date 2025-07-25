@@ -1,0 +1,24 @@
+name: Deploy to DigitalOcean Functions
+on:
+    workflow_dispatch:
+
+jobs:
+    serverless-deploy:
+        runs-on: ubuntu-latest
+        steps:
+            -   name: Clone repository code
+                uses: actions/checkout@v6
+
+            -   name: Setup doctl CLI with auth token
+                uses: digitalocean/action-doctl@v2
+                with:
+                    token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+            -   name: Install additional doctl serverless dependencies
+                run: doctl serverless install
+
+            -   name: Configure Functions namespace connection
+                run: doctl serverless connect ${{ secrets.DIGITALOCEAN_NAMESPACE }}
+
+            -   name: Deploy Functions to DigitalOcean
+                run: doctl serverless deploy . --remote-build

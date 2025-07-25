@@ -1,0 +1,7 @@
+packages:
+    -   name: response
+        functions:
+            -   name: contact-form-7
+                runtime: 'php:8.2'
+            -   name: gravity-forms
+                runtime: 'php:8.2'
